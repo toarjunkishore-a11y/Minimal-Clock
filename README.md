@@ -2,10 +2,6 @@
 
 A minimal dot-matrix timer, stopwatch, and clock — inspired by Nothing's glyph/LED aesthetic. Every digit and letter is hand-drawn as a 5×7 dot grid in pure HTML/CSS/JS. No fonts, no libraries, no build step.
 
-**[Live demo →](https://toarjunkishore-a11y.github.io/Minimal-Clock/)**
-
-![screenshot placeholder](screenshot.png)
-
 ## Features
 
 - **Timer** — editable hours / minutes / seconds with +/– steppers, start, pause, resume, reset
