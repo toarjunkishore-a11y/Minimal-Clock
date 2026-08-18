@@ -1,6 +1,10 @@
-# Dot Timer
+# Minimal Clock
 
 A minimal dot-matrix timer, stopwatch, and clock — inspired by Nothing's glyph/LED aesthetic. Every digit and letter is hand-drawn as a 5×7 dot grid in pure HTML/CSS/JS. No fonts, no libraries, no build step.
+
+**[Live demo →](https://toarjunkishore-a11y.github.io/Minimal-Clock/)**
+
+![screenshot placeholder](screenshot.png)
 
 ## Features
 
@@ -19,8 +23,8 @@ A minimal dot-matrix timer, stopwatch, and clock — inspired by Nothing's glyph
 Just open `index.html` in any browser — that's it, no install needed.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/dot-timer.git
-cd dot-timer
+git clone https://github.com/toarjunkishore-a11y/Minimal-Clock.git
+cd Minimal-Clock
 open index.html   # or double-click the file
 ```
 
@@ -29,7 +33,7 @@ open index.html   # or double-click the file
 1. Push this repo to GitHub.
 2. Go to **Settings → Pages**.
 3. Under **Source**, select the `main` branch and `/ (root)` folder.
-4. Save — your app will be live at `https://YOUR_USERNAME.github.io/dot-timer/`.
+4. Save — your app will be live at `https://toarjunkishore-a11y.github.io/Minimal-Clock/`.
 
 ## Tech
 

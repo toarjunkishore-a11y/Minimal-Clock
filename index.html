@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOT TIMER</title>
+<title>Minimal Clock</title>
 <style>
   :root{
     --bg:#000000;
@@ -13,6 +13,9 @@
     --accent:#d1441f;
     --dim: rgba(255,255,255,0.38);
     --dimmer: rgba(255,255,255,0.22);
+    --dotsize:16px;
+    --dotgap:5px;
+    --gap:7px;
   }
   *{box-sizing:border-box;}
   html,body{
@@ -50,7 +53,7 @@
   .brand{
     font-size:11px;
     color:var(--dim);
-    letter-spacing:4px;
+    letter-spacing:3px;
     display:flex;
     align-items:center;
     gap:8px;
@@ -206,8 +209,8 @@
     padding-bottom:40px;
   }
   .btn{
-    min-width:120px;
-    padding:14px 26px;
+    min-width:134px;
+    padding:16px 28px;
     border-radius:30px;
     border:1px solid rgba(255,255,255,0.22);
     background:transparent;
@@ -357,10 +360,10 @@
   }
 
   @media (max-width:640px){
-    :root{ --dotsize:8px; --dotgap:3px; --gap:4px; }
+    :root{ --dotsize:10px; --dotgap:3.5px; --gap:5px; }
     .laps{ display:none; }
     .btn{ min-width:96px; padding:12px 18px; font-size:11px;}
-    .tabs{ gap:20px; }
+    .tabs{ gap:14px; }
   }
 </style>
 </head>
@@ -369,7 +372,7 @@
   <div id="spotlight"></div>
 
   <div class="header">
-    <div class="brand"><span class="rdot"></span>DOT TIMER</div>
+    <div class="brand"><span class="rdot"></span>MINIMAL CLOCK</div>
     <div class="header-right">
       <div class="clock" id="wallclock">--:--</div>
       <button class="fs-btn" id="fsBtn" aria-label="Toggle fullscreen" title="Toggle fullscreen">
@@ -492,9 +495,10 @@ function renderDots(container, text, accentOn){
 function miniLabel(text){
   const holder = document.createElement('div');
   holder.className = 'dotgrid dotrow';
-  holder.style.setProperty('--dotsize','3px');
-  holder.style.setProperty('--dotgap','1.5px');
-  holder.style.setProperty('--gap','3px');
+  const narrow = window.innerWidth < 480;
+  holder.style.setProperty('--dotsize', narrow ? '2px' : '3px');
+  holder.style.setProperty('--dotgap', narrow ? '1px' : '1.5px');
+  holder.style.setProperty('--gap', narrow ? '2px' : '3px');
   text.split('').forEach(ch => holder.appendChild(buildDotChar(ch)));
   return holder;
 }
@@ -545,9 +549,11 @@ function fmt(totalSeconds){
 }
 function fmtSW(ms){
   const totalSec = ms/1000;
-  const m = Math.floor(totalSec/60);
+  const h = Math.floor(totalSec/3600);
+  const m = Math.floor((totalSec%3600)/60);
   const s = Math.floor(totalSec%60);
   const cs = Math.floor((ms%1000)/10);
+  if(h>0) return `${pad(h)}:${pad(m)}:${pad(s)}`;
   return `${pad(m)}:${pad(s)}.${pad(cs)}`;
 }
 function pad(n){ return n.toString().padStart(2,'0'); }
@@ -879,7 +885,7 @@ function maybeAskNotificationPermission(){
 }
 function fireNativeNotification(){
   if('Notification' in window && Notification.permission === 'granted'){
-    try{ new Notification('DOT TIMER', { body: 'Time is up.', silent:true }); }catch(e){}
+    try{ new Notification('MINIMAL CLOCK', { body: 'Time is up.', silent:true }); }catch(e){}
   }
 }
 
@@ -948,6 +954,11 @@ document.addEventListener('webkitfullscreenchange', updateFsIcon);
 /* ============ init ============ */
 buildTabs();
 render();
+let resizeTabTimer = null;
+window.addEventListener('resize', ()=>{
+  clearTimeout(resizeTabTimer);
+  resizeTabTimer = setTimeout(buildTabs, 150);
+});
 </script>
 </body>
 </html>
